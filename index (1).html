@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RSVP Kehadiran Majlis</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fefefe;
+      color: #333;
+    }
+
+    .rsvp-container {
+      max-width: 500px;
+      margin: 30px auto;
+      background: #fff8f0;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ffe0b2;
+    }
+
+    .rsvp-container h2 {
+      text-align: center;
+      color: #b76e79;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #5e3f3f;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    .radio-group {
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #b76e79;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #a45e68;
+    }
+
+    #status {
+      margin-top: 20px;
+      text-align: center;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="rsvp-container" id="rsvpFormContainer">
+    <h2>RSVP Kehadiran Majlis</h2>
+    <form id="rsvpForm">
+      <label for="nama">Nama:</label>
+      <input type="text" name="nama" id="nama" required />
+
+      <label>Kehadiran:</label>
+      <div class="radio-group">
+        <label><input type="radio" name="kehadiran" value="Hadir" required /> Hadir</label><br />
+        <label><input type="radio" name="kehadiran" value="Tidak Hadir" required /> Tidak Hadir</label>
+      </div>
+
+      <label for="ucapan">Ucapan untuk pengantin:</label>
+      <textarea name="ucapan" id="ucapan" rows="4" placeholder="Contoh: Semoga berbahagia hingga ke Jannah 😊"></textarea>
+
+      <button type="submit">Hantar RSVP</button>
+    </form>
+    <div id="status"></div>
+  </div>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbx1oNv6Yg8Fu7ksg302_9eE5dD1B5wzo7EWpo5WS-cs9d1XjISAaT7sLzKSomkW6AM/exec';
+
+    document.getElementById('rsvpForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const form = e.target;
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: new FormData(form),
+      })
+        .then(response => {
+          document.getElementById('status').innerHTML = '✅ Terima kasih! Kehadiran anda telah direkod.';
+          form.reset();
+        })
+        .catch(error => {
+          document.getElementById('status').innerHTML = '❌ Maaf, ada masalah. Sila cuba lagi.';
+          console.error('Error!', error.message);
+        });
+    });
+  </script>
+</body>
+</html>
