@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RSVP Kehadiran</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="rsvp-container">
+    <h2>RSVP Kehadiran Majlis</h2>
+    <form id="rsvpForm">
+      <label for="nama">Nama:</label>
+      <input type="text" name="nama" id="nama" required />
+
+      <label>Kehadiran:</label>
+      <div class="radio-group">
+        <label><input type="radio" name="kehadiran" value="Hadir" required /> Hadir</label><br />
+        <label><input type="radio" name="kehadiran" value="Tidak Hadir" required /> Tidak Hadir</label>
+      </div>
+
+      <label for="ucapan">Ucapan untuk pengantin:</label>
+      <textarea name="ucapan" id="ucapan" rows="4" placeholder="Contoh: Semoga berbahagia hingga ke Jannah 😊"></textarea>
+
+      <button type="submit">Hantar RSVP</button>
+    </form>
+    <div id="status"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
