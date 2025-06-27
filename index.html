@@ -1,13 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="ms">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RSVP Kehadiran</title>
+  <title>RSVP Majlis</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="rsvp-container">
+  <div class="rsvp-container" id="rsvpFormContainer">
     <h2>RSVP Kehadiran Majlis</h2>
     <form id="rsvpForm">
       <label for="nama">Nama:</label>
@@ -26,6 +27,25 @@
     </form>
     <div id="status"></div>
   </div>
-  <script src="script.js"></script>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbx1oNv6Yg8Fu7ksg302_9eE5dD1B5wzo7EWpo5WS-cs9d1XjISAaT7sLzKSomkW6AM/exec';
+    document.getElementById('rsvpForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const form = e.target;
+      fetch(scriptURL, {
+        method: 'POST',
+        body: new FormData(form),
+      })
+      .then(response => {
+        document.getElementById('status').innerHTML = '✅ Terima kasih! Kehadiran anda telah direkod.';
+        form.reset();
+      })
+      .catch(error => {
+        document.getElementById('status').innerHTML = '❌ Maaf, ada masalah. Sila cuba lagi.';
+        console.error('Error!', error.message);
+      });
+    });
+  </script>
 </body>
 </html>
